@@ -1,0 +1,26 @@
+<div class="leagues">
+    <div class="container" *ngIf="showLoading">
+
+        <div class="column spinner button is-loading is-large"></div>
+       </div>
+  <div class="card">
+       <table class="table  is-fullwidth is-striped">
+          <thead>
+            <tr>
+              <th>Competion</th>
+              <th>Prize</th>
+              <th>Players</th>
+            </tr>
+          </thead>
+          <tbody >
+            <tr *ngFor="let c of competitions; let i = index;">
+              <td>{{c.Title}}</td>
+              <td>{{c.prizeMoney}} Fantasy Coins</td>
+              <td>{{c.playerCount}}/{{c.maxPlayers}}</td>
+              <td><button class="button is-primary" (click)="joinCompe(i)">Join</button></td>
+            </tr>
+          </tbody>
+      </table> 
+ 
+    </div>
+</div>
