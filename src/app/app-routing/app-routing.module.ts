@@ -4,7 +4,8 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes=[
   {path: '', loadChildren: './admin.module#AdminModule'},
-  {path: 'new-competition', loadChildren: './create-compe.module#CreateCompeModule'}
+  {path: 'new-competition', loadChildren: './create-compe.module#CreateCompeModule'},
+  {path: 'factory', loadChildren: './factory.module#FactoryModule'}
 ]
 
 @NgModule({
