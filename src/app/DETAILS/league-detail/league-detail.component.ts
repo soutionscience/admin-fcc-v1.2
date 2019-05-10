@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
 import { Web3Service } from '../../util/web3.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ApiService } from '../../util/api.service';
+import { Compe } from '../../shared/compe.model';
 
 @Component({
   selector: 'app-league-detail',
@@ -13,6 +14,7 @@ export class LeagueDetailComponent implements OnInit {
   competitions: string [];
   showCompetitions: Boolean;
   compeForm: FormGroup
+  compe: any;
 
   constructor(private web3: Web3Service,
    private fb: FormBuilder, private ref: ChangeDetectorRef,
@@ -61,8 +63,16 @@ export class LeagueDetailComponent implements OnInit {
  this.web3.getCompetitions(c)
  .subscribe(resp=>{
    resp.etherId = c
+   console.log('this is what is sending ', resp)
   this.api.postResource('competitions ', resp)// post competition and add it to league
-  .subscribe(resp=>{
+  .subscribe(compe=>{
+    this.compe = compe
+    console.log('compeResponsce ', this.compe._id)
+    console.log('league ', this.league)
+   this.api.postSpecificResouce('leagues',this.league, 'competitions', {"compeId":this.compe._id} )
+   .subscribe(resp=>{
+     console.log('resp from server ', resp)
+   })
 
   })
 

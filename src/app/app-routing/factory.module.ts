@@ -7,13 +7,14 @@ import { TestDialogComponent } from '../dialogs/test-dialog/test-dialog.componen
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material';
 import { LeagueDetailComponent } from '../DETAILS/league-detail/league-detail.component';
+import { CompeDetailComponent } from '../DETAILS/compe-detail/compe-detail.component';
 
 const routes: Routes=[
 {path: '', component: FactoryComponent}
 ]
 
 @NgModule({
-  declarations: [FactoryComponent, CreateLeagueComponent, LeagueDetailComponent],
+  declarations: [FactoryComponent, CreateLeagueComponent, LeagueDetailComponent, CompeDetailComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
