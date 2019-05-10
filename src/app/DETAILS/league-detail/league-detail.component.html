@@ -1,0 +1,60 @@
+<div class="card">
+    <header class="card-header">
+      <p class="card-header-title">
+       League Details for: {{league | slice: 0:10}}
+      </p>
+    </header>
+    <div class="card-content">
+      <div class="content">
+       <!-- <p>Competitions:  </p> -->
+       <div *ngIf="!showCompetitions">
+         <p>There are no competitions in this league</p>
+       </div>
+       <div *ngIf="competitions">
+         <table>
+           <thead>
+             <tr>
+               <th>Competitions</th>
+               <th>Actions</th>
+
+             </tr>
+           </thead>
+           <tbody>
+             <tr *ngFor="let c of competitions">
+               <td>{{c |slice : 0:13}}</td>
+               <td><button class="button" (click)="init(c)">Initialize</button></td>
+             </tr>
+           </tbody>
+         </table>
+         
+
+       </div>
+      </div>
+    </div>
+    <div class="card-content">
+      <form class="form" [formGroup]="compeForm">
+        <div class="field">
+          <label class="label">Name</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="weekend league" formControlName="name">
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Max Players</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="24" formControlName="maxPlayers">
+          </div>
+        </div>
+        
+        <div class="field">
+          <label class="label">Amount</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="10 Eth" formControlName="prize">
+          </div>
+        </div>
+      </form>
+    </div>
+    <footer class="card-footer">
+     <button class="button is-primary" (click)="createCompe()">Create Compe</button>
+    </footer>
+  </div>

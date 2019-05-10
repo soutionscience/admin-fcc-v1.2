@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
@@ -11,16 +11,22 @@ import {
   MatCardModule,
   MatFormFieldModule,
   MatInputModule,
-  MatToolbarModule
+  MatToolbarModule,
+  MatDialogModule
 } from '@angular/material';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { Web3Service } from './util/web3.service';
+import { CreateLeagueComponent } from './dialogs/create-league/create-league.component';
+import { RestangularModule } from 'ngx-restangular';
+import { restangularConfigFactory } from './shared/restangular.config';
+import { TestDialogComponent } from './dialogs/test-dialog/test-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavBarComponent
+    NavBarComponent, 
+   TestDialogComponent
   ],
   imports: [
     AppRoutingModule,
@@ -33,8 +39,12 @@ import { Web3Service } from './util/web3.service';
     MatToolbarModule,
     BrowserModule,
     FormsModule,
-    HttpClientModule
+    ReactiveFormsModule,
+    RestangularModule.forRoot(restangularConfigFactory),
+    HttpClientModule,
+    MatDialogModule
   ],
+  entryComponents: [ TestDialogComponent],
   providers: [Web3Service],
   bootstrap: [AppComponent]
 })

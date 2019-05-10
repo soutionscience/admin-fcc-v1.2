@@ -3,6 +3,7 @@ import contract from 'truffle-contract';
 import {Subject, Observable, observable} from 'rxjs';
 import { Factory, League } from '../shared/address';
 import { ObserversModule } from '@angular/cdk/observers';
+import { CreateCompeComponent } from '../create-compe/create-compe.component';
 
 declare let require: any;
 const Web3 = require('web3');
@@ -12,7 +13,8 @@ const Web3 = require('web3');
 declare let window: any;
 let account : string;
 let factoryJson = require('../../../build/contracts/LeagueFactory.json');
-let leagueJson = require('../../../build/contracts/League.json')
+let leagueJson = require('../../../build/contracts/League.json');
+let compeJson = require('../../../build/contracts/Competitions.json')
 
 @Injectable()
 export class Web3Service {
@@ -104,6 +106,7 @@ export class Web3Service {
  getSingleAccount(){
  this.web3.eth.getAccounts((err, resp)=>{
    account = resp[0];
+   console.log('get single account ', resp[0])
   })
  }
 
@@ -147,151 +150,121 @@ export class Web3Service {
    return instance
 }
 // all depolyed getLeagues
-
-getAllLeagues(account, addr, gasToUse):Observable<any>{
+deployLeagues(account, gasToUse):Observable<any>{
+  console.log('address ', account)
   return Observable.create(observer=>{
-    let instance = this.createContractInstance(addr, factoryJson);
+
+    let instance = this.createContractInstance(Factory, factoryJson)
     let transactionObject = {
       from: account,
       gas: gasToUse
     }
-    instance.methods.GetAllLeagues().call(transactionObject, (err, result) => {
-      if (err) {
-        
-        observer.error(err)
-      } else {
+    instance.methods.deployLeague().send(transactionObject, (err, resp)=>{
+      if(err){
+        observer.error(err);
 
-        observer.next(result);
-        observer.complete()
+      }else{
+        observer.next(resp);
+        observer.complete();
       }
-
     })
 
   })
 
+
 }
-//get all comeptions in this weeks league
-getAllCompetions(account, addr, gasToUse):Observable<any>{
-  console.log('getting')
+getDeployedLeagues(account, gasToUse):Observable<any>{
   return Observable.create(observer=>{
-    let instance = this.createContractInstance(addr, leagueJson);
-		console.log("TCL: instance", instance)
-    
+    let instance = this.createContractInstance(Factory, factoryJson)
     let transactionObject = {
       from: account,
       gas: gasToUse
     }
-  
-    instance.methods.getCompetitionCount().call(transactionObject,(err, result)=>{
-		  let compe =[];	
-      if(err) throw err;
-      if(result<1){
-        console.log('no competitions in this league', result)
+    instance.methods.GetAllLeagues().call(transactionObject, (err, resp)=>{
+      if(err){
+        observer.error(err);
+
       }else{
-        console.log('number of competioins is ', result)
-        for (let index = 0; index < result; index++) {
-					console.log("TCL: index", index)
-           instance.methods.competitions(index).call(transactionObject, (err, result)=>{
-            if (err) {
-						console.log("TCL: err", err)
-          
-              observer.error(err)
-            }
-            else{
-              console.log('result', result)
-          let obj ={
-                prizeMoney: this.web3.utils.fromWei(result[2], 'ether'),
-                Title: "10 Ethereum weekend jackpot",
-                playerCount: result[4],
-                maxPlayers: result[3]
-        
-              }
-              compe.push(obj)
-							console.log("TCL: compe", compe)
-              
+        observer.next(resp);
+        observer.complete();
+      }
 
+    })
+  })
 
-            }
-            console.log('compe ',compe)
-            observer.next(compe)
-            observer.complete()
-
-          })
-         
-          
-        }
+}
+getDeployedCompetitions(id, gasToUse):Observable<any>{
+  return Observable.create(observer=>{
+    let instance = this.createContractInstance(id, leagueJson)
+    let transactionObject = {
+      from: account,
+      gas: gasToUse
+    }
+    instance.methods.getCompetitions().call(transactionObject, (err, resp)=>{
+      if(err){
+        observer.error(err)
+      }else{
+        observer.next(resp);
+        observer.complete();
       }
     })
-  
-  
 
   })
+
+
 }
-getCompetitionCount(acc, addr, gas):Observable<any>{
-  let instance = this.createContractInstance(addr, leagueJson);
-  return Observable.create(obsever=>{
+CreateCompeInstance(id, gasToUse, obj):Observable<any>{
+  return Observable.create(observer=>{
+    let instance = this.createContractInstance(id, leagueJson)
+    let prizeMoney = this.web3.utils.toWei(obj.prize, 'ether')
+    let transactionObject = {
+      from: account,
+      gas: gasToUse,
+      value: prizeMoney
+    }
+    instance.methods.deployCompetition(obj.maxPlayers, obj.name).send(transactionObject,(err, resp)=>{
+      if(err){
+        observer.error(err)
+      }else{
+        observer.next(resp);
+        observer.complete();
+      }
+
+    })
+
+  })
+
     
-    let transactionObject = {
-      from: account,
-      gas: gas
-    }
-    instance.methods.getCompetitionCount().call(transactionObject,(err, result)=>{
-      if(err){
-        obsever.error(err);
-
-      }else{
-        let obj={
-          number: result,
-          instance: instance
-        }
-        obsever.next(obj);
-        obsever.complete()
-      }
-    })
-
-  })
-
 }
-getCompetitions(account, gas, number, instance):Observable<any>{
-  return Observable.create(observer=>{
-    let transactionObject = {
-      from: account,
-      gas: gas
-    }
-    instance.methods.competitions(number).call(transactionObject, (err, result)=>{
-      if(err){
-        observer.error(err)
-      }else{
-        observer.next(result);
-        observer.complete()
-      }
-    })
-  })
-}
+getCompetitions(id):Observable<any>{
+  let name = ''
+  let maxPlayers =''
+  let prize=''
+return Observable.create(observer=>{
+  let instance = this.createContractInstance(id, compeJson)
 
+ instance.methods.name().call((err, resp)=>{
+   name = resp;
+   instance.methods.maxPlayers().call((err, resp)=>{
+     maxPlayers = resp;
+     instance.methods.prizeMoney().call((err, resp)=>{
+       prize = resp;
+     let obj={
+       compeName: name,
+       max: maxPlayers,
+       prizeMoney: prize
+     }
 
-
-joinCompe(acc, gas, index):Observable<any>{
-  return Observable.create(observer=>{
-    let transactionObject={
-      from: acc,
-      gas: gas
-
-    }
-    let instance = this.createContractInstance(League, leagueJson);
-    instance.methods.joinCompetition(index).send(transactionObject, (err, resp)=>{
-      console.log('this works ', index)
-      if(err) {
-        observer.error(err)
-      }else{
-        console.log('this also works')
-     observer.next(resp);
+     observer.next(obj)
      observer.complete()
-      }
-    })
+     })
+   })
+ })
 
-  })
 
+ 
+})
+  
 }
 
 

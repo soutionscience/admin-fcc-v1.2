@@ -5,7 +5,79 @@
         <button class="button is-primary" (click)="newLeague()">
           New League
         </button>
+        <button class="button is-danger" (click)="getDeployedLeagues()">
+          getLeagues
+        </button>
       </div>
     </div>
+    <div class="columns">
+      <p class="p">Create New leagues</p>
+      <div class="column is-one-third">
+        <div class="box">
+          <table class="table">
+            <thead>
+           <tr>
+             <th>Id</th>
+             <th>Actions</th>
+           </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor ="let l of leagues">
+                <td>EtherId: {{l | slice:0:12}}</td>
+                <td><button class="button " (click)="initialize(l)">Initialize</button></td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="column is-one-third">
+        <div class="box">
+            <app-create-league *ngIf="leagueId" [leagueDetail]="leagueId"></app-create-league>
+        </div>
+  
+
+      </div>
+    </div>
+    <p>create competitions</p>
+    <div class="box">
+        
+        <div class="columns">
+         
+
+            <div class="colum is-one-third">
+              <div class="box">
+                <table class="table">
+                    <thead>
+                        <tr>
+                          <!-- <th>Id</th> -->
+                          <th>Name</th>
+                          <th>Desc</th>
+                          <th>Actions</th>
+                        </tr>
+                         </thead>
+                         <tbody>
+                           <tr *ngFor="let l of initialisedLeagues">
+                             <!-- <td>id:{{l.etherId}}</td> -->
+                             <td>{{l.name}}</td>
+                             <td>{{l.desc}}</td>
+                             <td><button (click)="setLeague(l.etherId)" class="button is-primary">view</button></td>
+                           </tr>
+                         </tbody>
+
+                </table>
+
+              </div>
+            </div>
+            <div class="column is-one-third">
+              <div class="box">
+                <app-league-detail *ngIf="selectedLeague" [league]="selectedLeague"></app-league-detail>
+
+              </div>
+            </div>
+          </div>
+
+    </div>
+  
   </div>
 </div>

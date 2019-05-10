@@ -1,0 +1,30 @@
+<div class="card">
+    <header class="card-header">
+      <p class="card-header-title">
+       Create New League
+      </p>
+     </header>
+    <div class="card-content">
+   <div class="content">
+        <form  [formGroup]="createLeagueForm">
+            <div class="field">
+                <label class="label">Name</label>
+                <div class="control">
+                  <input class="input" type="text" placeholder="Name of league" FormControlName="name">
+                </div>
+              </div>
+              
+              <div class="field">
+                <label class="label">Desc</label>
+                <div class="control">
+                  <input class="input" type="text" placeholder="short description" formControlName="desc">
+                </div>
+              </div>
+        </form>
+      </div>
+    </div>
+    <footer class="card-footer">
+      <a (click)="save()" class="card-footer-item">Save</a>
+      <a (click)="close()" class="card-footer-item">Close</a>
+    </footer>
+  </div>

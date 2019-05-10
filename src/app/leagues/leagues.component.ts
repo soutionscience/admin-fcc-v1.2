@@ -22,10 +22,10 @@ export class LeaguesComponent implements OnInit {
   }
   getAllLeagues(account){ //gets leagues and calls its competitons
     console.log('calling getallleagues')
-    this.web3Service.getAllLeagues(account, Factory, this.gas)
-    .subscribe(resp=> {this.leagueAddress= resp[0]
-                       this.getCompetition(this.leagueAddress)
-                      })// leagues address
+    // this.web3Service.getAllLeagues(account, Factory, this.gas)
+    // .subscribe(resp=> {this.leagueAddress= resp[0]
+    //                    this.getCompetition(this.leagueAddress)
+    //                   })// leagues address
   }
 
   initAllCompetitons(){
@@ -40,13 +40,13 @@ export class LeaguesComponent implements OnInit {
   getCompetition(leagueAd){
     console.log('calling getCompe')
 
-   this.web3Service.getAllCompetions(this.coinBase, leagueAd, this.gas)
-   .subscribe(resp=>{
-     this.competitions=resp;
-    console.log('competitions', this.competitions)
-     this.showLoading = false;
-     this.ref.detectChanges()
-   })
+  //  this.web3Service.getAllCompetions(this.coinBase, leagueAd, this.gas)
+  //  .subscribe(resp=>{
+  //    this.competitions=resp;
+  //   console.log('competitions', this.competitions)
+  //    this.showLoading = false;
+  //    this.ref.detectChanges()
+  //  })
    this.ref.detectChanges()
 
 }
