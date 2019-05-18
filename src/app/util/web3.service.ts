@@ -248,10 +248,10 @@ return Observable.create(observer=>{
    instance.methods.maxPlayers().call((err, resp)=>{
      maxPlayers = resp;
      instance.methods.prizeMoney().call((err, resp)=>{
-       prize = resp;
+       prize = this.web3.utils.fromWei(resp, 'ether') ;
      let obj={
-       compeName: name,
-       max: maxPlayers,
+       name: name,
+       maxPlayers: maxPlayers,
        prizeMoney: prize
      }
 

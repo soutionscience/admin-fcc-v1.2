@@ -1,0 +1,65 @@
+<div class="competitions">
+  <p class="subtitle is-4">Initialized Competitions</p>
+  <div class="compe" *ngFor="let c of initLeague">
+   <!-- <div class="compe" *ngFor="let t of c"></div> -->
+  <p class="subtitle is-5"> League Name: {{c.desc}} </p> 
+  <p class=""><b>Competitions</b></p>
+  <div class="divider"></div>
+   <div class="myCompe" *ngFor="let t of c.competitions">
+      <div class="card">
+          <header class="card-header">
+            <p class="card-header-title">
+              {{t.name}}
+              <button class="button is-danger" (click)="calculate(t._id)">calculate</button>
+            </p>
+            <a (click)="showContent(t._id)" class="card-header-icon" aria-label="more options">
+              <span class="icon">
+                <i class="fa fa-angle-down" aria-hidden="true"></i>
+              </span>
+            </a>
+          </header>
+          <div class="card-content" *ngIf="show">
+            <div class="content">
+             
+              <p><b>Id: </b>{{t.etherId}}</p>
+              <p><b>Prize: </b>{{t.prizeMoney}}</p>
+              <p><b>Complete: </b>{{t.complete}}</p>
+              <p><b>Enrolled: </b>{{t.playerCount}}/{{t.maxPlayers}}</p>
+              <p><b>winner: </b>{{t.teams}}</p>
+ 
+            </div>
+          </div>
+          <footer class="card-footer" *ngIf="show">
+              <div *ngFor="let p of competition">
+              <table class="table">
+                  <thead>
+                      <tr>
+                        <th>Player</th>
+                        <th>Id</th>
+                        <th>Points</th>
+                        <th>Action</th>
+                    
+         
+                      </tr>
+                    </thead>
+                    <tbody>
+                    
+                        <tr *ngFor="let t of p.teams" >
+                        <td>{{t.username}}</td>
+                        <td>{{t.address| slice: 0:4}}</td>
+                        <td>{{t.teamPoints}}</td>
+
+                      
+                            <td><button (click)="award(t._id)" class="button is-primary">Award</button></td>
+                          </tr>
+                   
+                    
+                    </tbody>
+              </table>
+              </div>
+          </footer>
+        </div>
+   </div>
+
+ </div>
+</div>

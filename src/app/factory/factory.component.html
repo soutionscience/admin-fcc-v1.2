@@ -45,7 +45,7 @@
         <div class="columns">
          
 
-            <div class="colum is-one-third">
+            <div class="colum is-one-quarter">
               <div class="box">
                 <table class="table">
                     <thead>
@@ -69,17 +69,22 @@
 
               </div>
             </div>
-            <div class="column is-one-third">
+            <div class="column is-two-quarter">
+              <div class="box">
+                <app-init-compe *ngIf="selectedLeague" [league]="selectedLeague"></app-init-compe>
+              </div>
+              </div>
+            <div class="column is-one-quarter">
               <div class="box">
                 <app-league-detail *ngIf="selectedLeague" [league]="selectedLeague"></app-league-detail>
 
               </div>
             </div>
-            <div class="column is-one-third">
+            <!-- <div class="column is-one-third">
             <div class="box">
               <app-compe-detail></app-compe-detail>
             </div>
-            </div>
+            </div> -->
           </div>
 
     </div>

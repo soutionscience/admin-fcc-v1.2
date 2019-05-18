@@ -8,13 +8,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material';
 import { LeagueDetailComponent } from '../DETAILS/league-detail/league-detail.component';
 import { CompeDetailComponent } from '../DETAILS/compe-detail/compe-detail.component';
+import { InitCompeComponent } from '../DETAILS/init-compe/init-compe.component';
 
 const routes: Routes=[
 {path: '', component: FactoryComponent}
 ]
 
 @NgModule({
-  declarations: [FactoryComponent, CreateLeagueComponent, LeagueDetailComponent, CompeDetailComponent],
+  declarations: [FactoryComponent, CreateLeagueComponent, LeagueDetailComponent, CompeDetailComponent, InitCompeComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
