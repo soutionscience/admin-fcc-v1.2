@@ -1,18 +1,18 @@
 <div class="competitions">
   <p class="subtitle is-4">Initialized Competitions</p>
-  <div class="compe" *ngFor="let c of initLeague">
+  <div class="compe" *ngFor="let l of initLeague">
    <!-- <div class="compe" *ngFor="let t of c"></div> -->
-  <p class="subtitle is-5"> League Name: {{c.desc}} </p> 
+  <p class="subtitle is-5"> League Name: {{l.desc}} </p> 
   <p class=""><b>Competitions</b></p>
   <div class="divider"></div>
-   <div class="myCompe" *ngFor="let t of c.competitions">
+   <div class="myCompe" *ngFor="let c of l.competitions">
       <div class="card">
           <header class="card-header">
             <p class="card-header-title">
-              {{t.name}}
-              <button class="button is-danger" (click)="calculate(t._id)">calculate</button>
+              {{c.name}}
+              <button class="button is-danger" (click)="calculate(c._id)">calculate</button>
             </p>
-            <a (click)="showContent(t._id)" class="card-header-icon" aria-label="more options">
+            <a (click)="showContent(c._id)" class="card-header-icon" aria-label="more options">
               <span class="icon">
                 <i class="fa fa-angle-down" aria-hidden="true"></i>
               </span>
@@ -21,41 +21,35 @@
           <div class="card-content" *ngIf="show">
             <div class="content">
              
-              <p><b>Id: </b>{{t.etherId}}</p>
-              <p><b>Prize: </b>{{t.prizeMoney}}</p>
-              <p><b>Complete: </b>{{t.complete}}</p>
-              <p><b>Enrolled: </b>{{t.playerCount}}/{{t.maxPlayers}}</p>
-              <p><b>winner: </b>{{t.teams}}</p>
+              <p><b>Id: </b>{{c.etherId}}</p>
+              <p><b>Prize: </b>{{c.prizeMoney}}</p>
+              <p><b>Complete: </b>{{c.complete}}</p>
+              <p><b>Enrolled: </b>{{c.playerCount}}/{{c.maxPlayers}}</p>
+              <p><b>winner: </b></p>
  
             </div>
           </div>
           <footer class="card-footer" *ngIf="show">
-              <div *ngFor="let p of competition">
-              <table class="table">
-                  <thead>
-                      <tr>
-                        <th>Player</th>
-                        <th>Id</th>
-                        <th>Points</th>
-                        <th>Action</th>
-                    
-         
-                      </tr>
-                    </thead>
-                    <tbody>
-                    
-                        <tr *ngFor="let t of p.teams" >
-                        <td>{{t.username}}</td>
-                        <td>{{t.address| slice: 0:4}}</td>
-                        <td>{{t.teamPoints}}</td>
+              <div>
+             <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+               <thead>
+                 <tr>
+                   <th>name</th>
+                   <th>points</th>
+                   <th>Actions</th>
 
-                      
-                            <td><button (click)="award(t._id)" class="button is-primary">Award</button></td>
-                          </tr>
-                   
-                    
-                    </tbody>
-              </table>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr *ngFor="let u of competitors ; index as i">
+                   <td>{{u.username}}</td>
+                   <td>{{u.teamPoints}}</td>
+                   <td><button *ngIf="i==0 && u.teamPoints>0" class="button is-primary" (click)="award(u._id, c._id, u.address, c.etherId)">Award</button></td>
+                  <td><button *ngIf="etherScan" class="button is-link"> <a href="https://rinkeby.etherscan.io/tx/{{etherScan}}" target="blank">etherscan</a></button></td>
+  
+                 </tr>
+               </tbody>
+             </table>
               </div>
           </footer>
         </div>

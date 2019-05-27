@@ -17,6 +17,8 @@ export class FactoryComponent implements OnInit {
   leagueId: string;
   selectedLeague: string;
   initialisedLeagues: string [];
+  noLeague: string;
+
 
   constructor(private web3: Web3Service, private Api: ApiService,
     private ref: ChangeDetectorRef,
@@ -44,7 +46,10 @@ export class FactoryComponent implements OnInit {
   getDeployedLeagues(){
     this.web3.getDeployedLeagues(this.coinBase, '1000000')
     .subscribe(resp=>{
-      console.log('deployed leagues = ', resp);
+      // console.log('deployed leagues = ', resp);
+      if(resp.length == 0){
+       this.noLeague =' there are no league deployed with this factory'
+      }
       this.leagues = resp;
       // this.ref.detectChanges();
       this.getInitializedLeagues()

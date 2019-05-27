@@ -21,7 +21,8 @@
              <th>Actions</th>
            </tr>
             </thead>
-            <tbody>
+            <tbody *ngIf="noLeague"> {{noLeague}}</tbody>
+            <tbody *ngIf="!noLeague">
               <tr *ngFor ="let l of leagues">
                 <td>EtherId: {{l | slice:0:12}}</td>
                 <td><button class="button " (click)="initialize(l)">Initialize</button></td>

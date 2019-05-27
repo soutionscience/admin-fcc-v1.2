@@ -26,6 +26,9 @@ export class ApiService {
   getSpecificResource(apiRoute, id): Observable<any[]>{
     return this.restangular.one(apiRoute, id).get()
   }
+  getVerySpecificResouce(apiRoute, id, item):Observable<any[]>{
+ return this.restangular.one(apiRoute, id).getList(item)
+  }
   getTokenResource(apiRoute,id, sign, nonce):Observable<any>{
     console.log('received ', apiRoute , id,'/', sign)
     return this.restangular.one(apiRoute,id,).one(sign, nonce).get()

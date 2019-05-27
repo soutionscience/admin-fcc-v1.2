@@ -267,6 +267,28 @@ return Observable.create(observer=>{
   
 }
 
+awardWinner(compeId, userId, gasToUse, ):Observable<any>{
+  return Observable.create(observer=>{
+    let transactionObject = {
+      from: account,
+      gas: gasToUse
+    }
+    let instance = this.createContractInstance(compeId, compeJson);
+     instance.methods.awardWinner(userId).send(transactionObject, (err, resp)=>{
+       if(err){
+         observer.error(err)
+
+       }else{
+         observer.next(resp);
+         observer.complete()
+       }
+     })
+
+
+  })
+
+}
+
 
   
 }
