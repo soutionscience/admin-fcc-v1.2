@@ -14,7 +14,8 @@ declare let window: any;
 let account : string;
 let factoryJson = require('../../../build/contracts/LeagueFactory.json');
 let leagueJson = require('../../../build/contracts/League.json');
-let compeJson = require('../../../build/contracts/Competitions.json')
+let compeJson = require('../../../build/contracts/Competitions.json');
+let tokenContract = require('../../../build/contracts/fantasyCoinV3.json')
 
 @Injectable()
 export class Web3Service {
