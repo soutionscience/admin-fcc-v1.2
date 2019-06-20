@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="users">
+ <div class="box has-background-primary has-text-white">
+   <p class="title">Users</p>
+ </div>
+    <table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Balance</th>
+      <th>TeaPoints</th>
+      <th>Joined</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let i of players">
+      <td>{{i.username}}</td>
+      <td>{{i.balance}}</td>
+      <td>{{i.teamPoints}}</td>
+      <td>___</td>
+      <td><button [routerLink]="[ '/users', i.address ]" class="button is-warning">More</button></td>
+    </tr>
+  </tbody>
+    </table>
+  </div>
+</div>

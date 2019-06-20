@@ -17,6 +17,7 @@ export class AdminHomeComponent implements OnInit {
     this.getPlayers();
   }
   getPlayers(){
+    setTimeout(()=>{
     this.api.getResource('users')
     .subscribe(resp=>{
       this.players = resp;
@@ -24,6 +25,8 @@ export class AdminHomeComponent implements OnInit {
       this.ref.detectChanges()
 
     })
+  }, 1000)
 
   }
+
 }

@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="user-detail">
+    <div class="box has-background-link has-text-white" *ngIf="user">{{user.username}}</div>
+    <div class="box" *ngIf="user">
+      <p>Balance: {{user.balance}}</p>
+      <p>Team Points: {{user.teamPoints}}</p>
+      <p>Joining Date: {{user.joined}}</p>
+      <button class="button is-danger" (click)="award(user.address, '100')">Award Coins</button>
+    </div>
+ 
+  </div>
+</div>
