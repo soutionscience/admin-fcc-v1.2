@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import contract from 'truffle-contract';
 import {Subject, Observable, observable} from 'rxjs';
-import { Factory, League } from '../shared/address';
+import { Factory, League, Token} from '../shared/address';
 import { ObserversModule } from '@angular/cdk/observers';
 import { CreateCompeComponent } from '../create-compe/create-compe.component';
 
