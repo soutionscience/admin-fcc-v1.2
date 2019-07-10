@@ -1,6 +1,9 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../util/api.service';
+import { AuthService } from '../../util/auth.service';
+import { Web3Service } from '../../util/web3.service';
+import { TokenService } from '../../util/token.service';
 
 @Component({
   selector: 'app-user-detail',
@@ -8,16 +11,19 @@ import { ApiService } from '../../util/api.service';
   styleUrls: ['./user-detail.component.scss']
 })
 export class UserDetailComponent implements OnInit {
-  user: String []
+  user: String [];
+  adminUser: String;
 
   constructor(private route: ActivatedRoute,
     private apiService: ApiService,
-    private ref: ChangeDetectorRef) { }
+    private ref: ChangeDetectorRef,
+    private auth: AuthService,
+    private tokenService: TokenService) { }
 
   ngOnInit() {
     const id = this.route.snapshot.params['id'];
-    
-    this.getUser(id)
+    this.getUser(id);
+    this.getAdminAddress()
   }
   getUser(id){
     this.apiService.getSpecificResource('users', id)
@@ -27,11 +33,12 @@ export class UserDetailComponent implements OnInit {
   }
 
   award(id, amount){
-    this.apiService.postSpecificResouce('users', id, 'coins', {'amount':amount})
-    .subscribe(resp=>{
-      this.ref.detectChanges()
-      
-    })
+    this.tokenService.awardTokens(this.adminUser, id, amount, '1000000')
+    .subscribe()
+  }
+  getAdminAddress(){
+  this.adminUser= this.auth.getAddress() 
+
   }
 
 }

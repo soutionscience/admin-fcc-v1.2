@@ -31,6 +31,7 @@ export class Web3Service {
      this.checkAndInstatiateWeb3();
       this.checkMetamask();
       this.getSingleAccount();
+      //this.getTokenBalance();
      
 
     // });
@@ -108,9 +109,28 @@ export class Web3Service {
  this.web3.eth.getAccounts((err, resp)=>{
    account = resp[0];
    console.log('get single account ', resp[0])
+  //  this.getTokenBalance(account).subscribe()
   })
  }
+ getTokenBalance(account):Observable<any>{
+   
+   return Observable.create(observer=>{
+     let instance = this.createContractInstance(Token, tokenContract);
+     //console.log('account nayo ', account)
+     instance.methods.balanceOf(account).call((err, resp)=>{
+       if(err){
+        observer.next(err)
+       }else{
+        observer.next(resp);
+        observer.complete()
+       }
+     })
+   })
 
+ }
+//  AwardNewTokens():Observable<any>{
+
+//  }
  signTransaction(nonce):Observable<any>{
   // nounce= this.web3.utils.toHex( nounce.challenge)
   console.log('received ', nonce)
