@@ -33,6 +33,7 @@ export class UserDetailComponent implements OnInit {
   }
 
   award(id, amount){
+    console.log('the fuck is admin ', this.adminUser)
     this.tokenService.awardTokens(this.adminUser, id, amount, '1000000')
     .subscribe()
   }

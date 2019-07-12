@@ -4,8 +4,20 @@
     <div class="box" *ngIf="user">
       <p>Balance: {{user.balance}}</p>
       <p>Team Points: {{user.teamPoints}}</p>
-      <p>Joining Date: {{user.joined}}</p>
-      <button class="button is-danger" (click)="award(user.address, '1000')">Award Coins</button>
+      <p>Status: {{user.active}}</p>
+      <p>Joining Date: {{user.joined | date}}</p>
+     
+
+      <div class="field is-grouped is-grouped-centered">
+        <p class="control">
+          <button class="button is-danger" (click)="award(user.address, '1000')">Award Coins</button>
+        </p>
+        <p class="control">
+          <button class="button is-light" href="/">
+           activate
+          </button>
+        </p>
+      </div>
     </div>
  
   </div>
