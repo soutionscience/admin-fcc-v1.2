@@ -37,6 +37,16 @@ export class UserDetailComponent implements OnInit {
     this.tokenService.awardTokens(this.adminUser, id, amount, '1000000')
     .subscribe()
   }
+  activate(id){
+    this.apiService.postSpecificResouce('users', id, 'active', true)
+    .subscribe(resp=>console.log('responce  ', resp))
+
+  }
+  // makeAdmin(id){
+  //   this.apiService.postSpecificResouce('users', id, 'admin', true)
+  //   .subscribe(resp=>console.log('responce  ', resp))
+
+  // }
   getAdminAddress(){
   this.adminUser= this.auth.getAddress() 
 

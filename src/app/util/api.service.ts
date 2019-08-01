@@ -33,6 +33,9 @@ export class ApiService {
     console.log('received ', apiRoute , id,'/', sign)
     return this.restangular.one(apiRoute,id,).one(sign, nonce).get()
   }
+  // postVerySpecificResource(apiRoute, id, item):Observable<any>{
+  //   return this.restangular.one(apiRoute, id).post
+  // }
 }
 
 
