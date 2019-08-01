@@ -21,12 +21,13 @@ import { CreateLeagueComponent } from './dialogs/create-league/create-league.com
 import { RestangularModule } from 'ngx-restangular';
 import { restangularConfigFactory } from './shared/restangular.config';
 import { TestDialogComponent } from './dialogs/test-dialog/test-dialog.component';
+import { LogInComponent } from './dialogs/log-in/log-in.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavBarComponent, 
-   TestDialogComponent
+   TestDialogComponent, LogInComponent
   ],
   imports: [
     AppRoutingModule,
