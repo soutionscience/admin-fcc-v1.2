@@ -22,6 +22,7 @@ export class AdminHomeComponent implements OnInit {
   ngOnInit() {
     this.getCoinBase()
     this.getPlayers();
+    console.log('hitting admin')
   }
 
   getCoinBase(){

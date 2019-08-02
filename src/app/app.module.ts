@@ -25,7 +25,6 @@ import { LogInComponent } from './dialogs/log-in/log-in.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
     NavBarComponent, 
    TestDialogComponent, LogInComponent
   ],
@@ -47,6 +46,7 @@ import { LogInComponent } from './dialogs/log-in/log-in.component';
   ],
   entryComponents: [ TestDialogComponent],
   providers: [Web3Service],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [AppComponent]
 })
 export class AppModule { }
